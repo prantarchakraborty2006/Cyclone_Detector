@@ -13,7 +13,18 @@ from app.utils import (
     engineer_features,
     add_acceleration,
 )
+from fastapi.middleware.cors import CORSMiddleware
 
+app = FastAPI(title="CycloCast Inference Gateway")
+
+# Allow web browsers to make requests to this API
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Allows requests from any website domain
+    allow_credentials=True,
+    allow_methods=["*"],  # Allows POST, GET, OPTIONS, etc.
+    allow_headers=["*"],
+)
 # Global dictionary to cache models in memory
 models_cache: Dict[str, Any] = {}
 
